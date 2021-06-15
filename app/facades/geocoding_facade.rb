@@ -1,8 +1,12 @@
 class GeocodingFacade
   class << self
     def get_coordinates(location)
-      json = MapQuestService.request_api("/geocoding/v1/address?location=#{location}")
-      Coordinate.new(json[:results][0][:locations][0][:latLng])
+      json = MapQuestService.get_location(location)
+      if json[:results][0][:locations].empty?
+        return 'Invalid Location'
+      else
+        json[:results][0][:locations][0][:latLng]
+      end
     end
   end
 end
