@@ -8,6 +8,11 @@ describe 'Backgrounds Request' do
       json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
+
+      expect(json[:data].keys).to eq(%i[id type attributes])
+      expect(json[:data][:attributes].keys).to eq(%i[image])
+      expect(json[:data][:attributes][:image].keys).to eq(%i[location image_url credit])
+      expect(json[:data][:attributes][:image][:credit].keys).to eq(%i[source author logo])
     end
   end
 
