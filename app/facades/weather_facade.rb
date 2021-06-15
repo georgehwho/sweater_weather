@@ -7,6 +7,7 @@ class WeatherFacade
       return coordinate if coordinate.class == String
 
       data = OpenWeatherService.get_one_call(coordinate)
+      return data if data.class == String
 
       forecast = OpenStruct.new(
         id: nil,
