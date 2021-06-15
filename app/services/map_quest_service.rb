@@ -9,6 +9,7 @@ class MapQuestService < BaseService
         f.params['key'] = ENV['mapquest_key']
       end
 
+      return "MapQuest Issue" unless resp.success?
       parse_json(resp)
     end
   end

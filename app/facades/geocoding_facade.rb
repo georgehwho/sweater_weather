@@ -1,11 +1,13 @@
 class GeocodingFacade
   class << self
     def get_coordinates(location)
-      json = MapQuestService.get_location(location)
-      if json[:results][0][:locations].empty?
+      location_resp = MapQuestService.get_location(location)
+      if location_resp.class == String
+        return location_resp
+      elsif location_resp[:results][0][:locations].empty?
         return 'Invalid Location'
       else
-        json[:results][0][:locations][0][:latLng]
+        location_resp[:results][0][:locations][0][:latLng]
       end
     end
   end

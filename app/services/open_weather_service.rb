@@ -9,6 +9,7 @@ class OpenWeatherService < BaseService
         f.params['appid'] = ENV['openweather_key']
       end
 
+      return "OpenWeather Issue" unless resp.success?
       parse_json(resp)
     end
   end
