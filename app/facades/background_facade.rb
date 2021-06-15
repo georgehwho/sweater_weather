@@ -4,7 +4,7 @@ class BackgroundFacade
   class << self
     def get_background(location)
       background = UnsplashService.get_image(location)
-      return background if background.class == String
+      return 'Location Invalid' if background[:results].empty?
 
       OpenStruct.new(
         id: nil,
