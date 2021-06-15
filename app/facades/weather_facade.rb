@@ -18,9 +18,9 @@ class WeatherFacade
 
     def get_current_weather(data)
       {
-        datetime: data[:dt],
-        sunrise: data[:sunrise],
-        sunset: data[:sunset],
+        datetime: Time.at(data[:dt]).to_s(:dt),
+        sunrise: Time.at(data[:sunrise]).to_s(:time),
+        sunset: Time.at(data[:sunset]).to_s(:time),
         temperature: data[:temp],
         feels_like: data[:feels_like],
         humidity: data[:humidity],
@@ -34,9 +34,9 @@ class WeatherFacade
     def get_daily_weather(daily_data)
       daily_data.map do |data|
         {
-          date: data[:dt],
-          sunrise: data[:sunrise],
-          sunset: data[:sunset],
+          date: Time.at(data[:dt]).to_date,
+          sunrise: Time.at(data[:sunrise]).to_s(:time),
+          sunset: Time.at(data[:sunset]).to_s(:time),
           max_temp: data[:temp][:max],
           min_temp: data[:temp][:min],
           conditions: data[:weather][0][:description],
@@ -48,7 +48,7 @@ class WeatherFacade
     def get_hourly_weather(hourly_data)
       hourly_data.map do |data|
         {
-          time: data[:dt],
+          time: Time.at(data[:dt]).to_s(:time),
           temperature: data[:temp],
           conditions: data[:weather][0][:description],
           icon: data[:weather][0][:icon]
